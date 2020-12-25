@@ -1,0 +1,23 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="text-name-input">
+            <div *ngIf="displayAlert" class="alert alert-danger" role="alert">
+                Please enter valid values for the below fields.
+            </div>
+            <input type="text" class="form-control input" [(ngModel)]="name" placeholder="Enter Your Name"
+                onfocus="this.placeholder = ''" onblur="this.placeholder='Enter Your Name'" required />
+        </div>
+        <div id="roomcode" class="input-group mb-3">
+            <input type="text" class="form-control" [(ngModel)]="joincode" placeholder="Enter Room Code"
+                aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" (click)="generateNewRoomCode()">Generate
+                    Code</button>
+            </div>
+        </div>
+        <div id="joinbuttondiv">
+            <button id="joinbutton" type="submit" class="btn btn-primary" (click)="submitName()">Enter
+            </button>
+        </div>
+    </div>
+</div>

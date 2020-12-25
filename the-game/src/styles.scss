@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+body {
+    /* The image used */
+    //background: url("assets\\images\\background.jpg");
+  
+    /* Set a specific height */
+    /*height: 500px;*/
+  
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 90%;
+  }
