@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "QlOZD883EtozWCfdWrFV9Q6o1O7UjTF0gUPRulpRrY2P4WKFuc5NhipFuSsBPjLE5x8Lktger/dy0O1N6SffJQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\robadrin\\source\\repos\\Furore\\TheGameBackend\\TheGameBackend\\TheGameBackend.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\robadrin\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

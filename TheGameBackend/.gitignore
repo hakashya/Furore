@@ -1,0 +1,6 @@
+.vs/*
+./*/Properties/PublishProfiles/*
+./*/obj/*
+./*/bin/*
+./*/Configuration.json
+./*/RoomFiles/*

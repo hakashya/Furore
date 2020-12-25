@@ -15,18 +15,13 @@ export class LobbyScreenComponent implements OnInit {
   constructor(private backend: BackendService) { }
 
   ngOnInit(): void {
-    this.getCurrentState()
+    this.getCurrentState();
   }
 
   getCurrentState(): void {
-    this.backend.fetchCurrentState(localStorage.getItem("roomcode")).subscribe(
+    this.backend.fetchCurrentState(sessionStorage.getItem("roomcode")).subscribe(
       (response) => {
         console.log(response)
-        /*
-        for (var i = 0; i < response.length; i++) {
-          this.allParticipants[i] = response[i];
-        }
-        */
         this.allParticipants = response;
         console.log(this.allParticipants);
       },

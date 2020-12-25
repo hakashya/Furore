@@ -1,0 +1,31 @@
+{
+  "roomCode": "Dk1qn1kE",
+  "participantCount": 4,
+  "roundCount": 0,
+  "participants": [
+    {
+      "roomCode": "Dk1qn1kE",
+      "participantName": "p1",
+      "score": 0,
+      "isReady": false
+    },
+    {
+      "roomCode": "Dk1qn1kE",
+      "participantName": "p2",
+      "score": 0,
+      "isReady": false
+    },
+    {
+      "roomCode": "Dk1qn1kE",
+      "participantName": "p3",
+      "score": 0,
+      "isReady": false
+    },
+    {
+      "roomCode": "Dk1qn1kE",
+      "participantName": "p4",
+      "score": 0,
+      "isReady": false
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "roomCode": "0eMkXN1j",
+  "participantCount": 2,
+  "roundCount": 0,
+  "participants": [
+    {
+      "roomCode": "0eMkXN1j",
+      "participantName": "p1",
+      "score": 0,
+      "isReady": false
+    },
+    {
+      "roomCode": "0eMkXN1j",
+      "participantName": "p2",
+      "score": 0,
+      "isReady": false
+    }
+  ]
+}

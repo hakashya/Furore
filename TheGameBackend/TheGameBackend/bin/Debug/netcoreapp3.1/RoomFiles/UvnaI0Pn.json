@@ -1,0 +1,19 @@
+{
+  "roomCode": "UvnaI0Pn",
+  "participantCount": 2,
+  "roundCount": 0,
+  "participants": [
+    {
+      "roomCode": "UvnaI0Pn",
+      "participantName": "p1",
+      "score": 0,
+      "isReady": false
+    },
+    {
+      "roomCode": "UvnaI0Pn",
+      "participantName": "p1",
+      "score": 0,
+      "isReady": false
+    }
+  ]
+}

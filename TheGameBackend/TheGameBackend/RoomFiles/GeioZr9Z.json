@@ -1,0 +1,19 @@
+{
+  "roomCode": "GeioZr9Z",
+  "participantCount": 2,
+  "roundCount": 0,
+  "participants": [
+    {
+      "roomCode": "GeioZr9Z",
+      "participantName": "p1",
+      "score": 0,
+      "isReady": false
+    },
+    {
+      "roomCode": "GeioZr9Z",
+      "participantName": "p2",
+      "score": 0,
+      "isReady": false
+    }
+  ]
+}
