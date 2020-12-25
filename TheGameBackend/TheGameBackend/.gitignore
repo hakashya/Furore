@@ -1,0 +1,5 @@
+Properties/PublishProfiles/*
+obj/*
+bin/*
+Configuration.json
+../.vs/*

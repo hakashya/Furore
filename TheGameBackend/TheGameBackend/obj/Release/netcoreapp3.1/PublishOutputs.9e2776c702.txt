@@ -1,9 +1,0 @@
-C:\Users\hakashya\source\repos\TheGameBackend\TheGameBackend\obj\Release\netcoreapp3.1\PubTmp\Out\TheGameBackend.exe
-C:\Users\hakashya\source\repos\TheGameBackend\TheGameBackend\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.Development.json
-C:\Users\hakashya\source\repos\TheGameBackend\TheGameBackend\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.json
-C:\Users\hakashya\source\repos\TheGameBackend\TheGameBackend\obj\Release\netcoreapp3.1\PubTmp\Out\Configuration.json
-C:\Users\hakashya\source\repos\TheGameBackend\TheGameBackend\obj\Release\netcoreapp3.1\PubTmp\Out\TheGameBackend.dll
-C:\Users\hakashya\source\repos\TheGameBackend\TheGameBackend\obj\Release\netcoreapp3.1\PubTmp\Out\TheGameBackend.deps.json
-C:\Users\hakashya\source\repos\TheGameBackend\TheGameBackend\obj\Release\netcoreapp3.1\PubTmp\Out\TheGameBackend.runtimeconfig.json
-C:\Users\hakashya\source\repos\TheGameBackend\TheGameBackend\obj\Release\netcoreapp3.1\PubTmp\Out\TheGameBackend.pdb
-C:\Users\hakashya\source\repos\TheGameBackend\TheGameBackend\obj\Release\netcoreapp3.1\PubTmp\Out\Newtonsoft.Json.dll
