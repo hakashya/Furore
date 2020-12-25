@@ -1,6 +1,6 @@
 .vs/*
-./*/Properties/PublishProfiles/*
-./*/obj/*
-./*/bin/*
-./*/Configuration.json
-./*/RoomFiles/*
+*/Properties/PublishProfiles/*
+*/obj/*
+*/bin/*
+*/Configuration.json
+*/RoomFiles/*
