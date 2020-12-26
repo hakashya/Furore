@@ -17,14 +17,12 @@ export class LobbyScreenComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentState();
-    //if (localStorage.getItem("roomcode") == null) {       //If somebody goes to lobby without logging in, they're redirected.
-    //  this.router.navigate(['/home'])
-    //}
   }
 
   getCurrentState(): void {
-    this.backend.fetchCurrentState(localStorage.getItem("roomcode")).subscribe(
+    this.backend.fetchCurrentState(sessionStorage.getItem("roomcode")).subscribe(
       (response) => {
+        console.log(response)
         this.allParticipants = response;
       },
       (err) => {

@@ -28,16 +28,16 @@ export class HomeComponent implements OnInit {
 
     this.displayAlert = false;
     if (this.name.length === 0 || this.joincode.length === 0) {
-      this.displayAlert = true
+      this.displayAlert = true;
       return;
     }
 
     this.backend.joinTheRoom({ participantName: this.name, roomCode: this.joincode, score: 0, isReady: false }).subscribe(
       (response) => {
         console.log(response)
-        localStorage.setItem("name", this.name);
-        localStorage.setItem("roomcode", this.joincode);
-        localStorage.setItem("score", "0");
+        sessionStorage.setItem("name", this.name);
+        sessionStorage.setItem("roomcode", this.joincode);
+        sessionStorage.setItem("score", "0");
         this.router.navigate(['/lobby']);
       },
       (err) => {
