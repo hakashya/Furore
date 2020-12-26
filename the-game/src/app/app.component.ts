@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnDestroy } from '@angular/core';
 import { BackendService } from 'src/app/services/backend.service';
 
 @Component({
@@ -7,22 +7,32 @@ import { BackendService } from 'src/app/services/backend.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'YIKES!';
+  
+  title: string = 'YIKES!';
+  trigger: string = '';
 
   constructor(private backend: BackendService) {
-
   }
 
-  onBeforeUnload(): void {
+  @HostListener('window:beforeunload', [ '$event' ])
+  beforeUnloadHander(event: any) {
+    this.trigger = event;
+    console.log(this.trigger);
+    return false;
+  }
 
-    this.backend.quitRoom(localStorage.getItem("roomcode"), localStorage.getItem("name")).subscribe(
+  @HostListener('window:unload', ['$event'])
+  unloadHandler(event: any) {
+    console.log(this.trigger);
+    this.backend.quitRoom(sessionStorage.getItem("roomcode"), sessionStorage.getItem("name")).subscribe(
       (response) => {
-        console.log(response)
+        console.log(response)    
+        sessionStorage.clear();
       },
       (err) => {
         console.log(err)
       }
-    )
-    localStorage.clear();
-  }
+    );
+  }  
+
 }
