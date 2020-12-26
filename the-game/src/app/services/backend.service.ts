@@ -19,14 +19,7 @@ export class BackendService {
 
   fetchCurrentState(roomCode: any): Observable<any> {
     const headers = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
-<<<<<<< HEAD
-
-    var Url = this.hostName + "/api/RoomManagement/All?roomCode=" + roomCode;
-
-    return this.http.get(Url, { headers });
-=======
     return this.http.get(this.hostName + "/api/RoomManagement/All?roomCode=" + roomCode, { headers });
->>>>>>> f35316041aed8ce8b181cb2b94302060ab6aa544
   }
 
   quitRoom(roomCode: any, name: any): Observable<any> {
