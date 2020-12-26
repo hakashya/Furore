@@ -10,8 +10,6 @@ export class BackendService {
 
   private hostName = "https://localhost:44385"//"https://thegamebackend.azurewebsites.net"
 
-  response: any
-
   constructor(private http: HttpClient) { }
 
   joinTheRoom(details: Participant): Observable<any> {

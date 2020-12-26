@@ -1,5 +1,6 @@
 import { NullTemplateVisitor } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Participant } from 'src/app/Models/participant.model';
 import { BackendService } from 'src/app/services/backend.service';
 
@@ -12,7 +13,7 @@ export class LobbyScreenComponent implements OnInit {
 
   allParticipants: Participant[] = [];
 
-  constructor(private backend: BackendService) { }
+  constructor(private backend: BackendService, private router: Router) { }
 
   ngOnInit(): void {
     this.getCurrentState();
@@ -23,11 +24,14 @@ export class LobbyScreenComponent implements OnInit {
       (response) => {
         console.log(response)
         this.allParticipants = response;
-        console.log(this.allParticipants);
       },
       (err) => {
         console.log(err);
       }
     );
+  }
+
+  setReady(): void {
+
   }
 }
