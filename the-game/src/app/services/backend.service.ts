@@ -10,8 +10,6 @@ export class BackendService {
 
   private hostName = "https://localhost:44385"//"https://thegamebackend.azurewebsites.net"
 
-  response: any
-
   constructor(private http: HttpClient) { }
 
   joinTheRoom(details: Participant): Observable<any> {
@@ -28,11 +26,7 @@ export class BackendService {
 
     var Url = this.hostName + "/api/RoomManagement/All?roomCode=" + roomCode;
 
-    //return this.http.get(Url, { headers });
-
-    var r = this.http.get(Url, { headers });
-
-    return r;
+    return this.http.get(Url, { headers });
   }
 
   quitRoom(roomCode: any, name: any): Observable<any> {

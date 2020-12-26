@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hakashya\\source\\repos\\TheGameBackend\\TheGameBackend\\TheGameBackend.csproj": {}
+    "C:\\Users\\hakashya\\source\\repos\\FuroreGame\\TheGameBackend\\TheGameBackend\\TheGameBackend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hakashya\\source\\repos\\TheGameBackend\\TheGameBackend\\TheGameBackend.csproj": {
+    "C:\\Users\\hakashya\\source\\repos\\FuroreGame\\TheGameBackend\\TheGameBackend\\TheGameBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hakashya\\source\\repos\\TheGameBackend\\TheGameBackend\\TheGameBackend.csproj",
+        "projectUniqueName": "C:\\Users\\hakashya\\source\\repos\\FuroreGame\\TheGameBackend\\TheGameBackend\\TheGameBackend.csproj",
         "projectName": "TheGameBackend",
-        "projectPath": "C:\\Users\\hakashya\\source\\repos\\TheGameBackend\\TheGameBackend\\TheGameBackend.csproj",
+        "projectPath": "C:\\Users\\hakashya\\source\\repos\\FuroreGame\\TheGameBackend\\TheGameBackend\\TheGameBackend.csproj",
         "packagesPath": "C:\\Users\\hakashya\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hakashya\\source\\repos\\TheGameBackend\\TheGameBackend\\obj\\",
+        "outputPath": "C:\\Users\\hakashya\\source\\repos\\FuroreGame\\TheGameBackend\\TheGameBackend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

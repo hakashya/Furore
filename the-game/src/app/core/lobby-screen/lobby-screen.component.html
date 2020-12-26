@@ -1,3 +1,14 @@
-<ul>
-    <li *ngFor="let participant of allParticipants">{{participant.participantName}}</li>
-</ul>
+<div class="container">
+    <div id="header">Ready to play?</div>
+    <ul id="listOfPlayers">
+        <li *ngFor="let participant of allParticipants">
+            <div class="flex-container playerItem">
+                <div class="flex-child nameDiv">{{participant.participantName}}</div>
+                <div class="flex-child scoreDiv">{{participant.score}}</div>
+            </div>
+        </li>
+    </ul>
+    <div class="buttonClass">
+        <button class="btn btn-primary" type="submit" (click)="setReady()">I am Ready</button>
+    </div>
+</div>
