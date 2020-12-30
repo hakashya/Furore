@@ -8,7 +8,15 @@
             </div>
         </li>
     </ul>
-    <div class="buttonClass">
-        <button class="btn btn-primary" type="submit" (click)="setReady()">I am Ready</button>
+    <div *ngIf="!isReady">
+        <div class="buttonClass">
+            <button class="btn btn-primary" type="submit" (click)="setReady()">I am Ready</button>
+        </div>
     </div>
+    <div *ngIf="isReady">
+        <div class="buttonClass">
+            <p>Waiting for other players to be ready</p>
+        </div>
+    </div>
+
 </div>

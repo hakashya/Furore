@@ -1,37 +1,61 @@
-import { NullTemplateVisitor } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Participant } from 'src/app/Models/participant.model';
 import { BackendService } from 'src/app/services/backend.service';
+import { SignalrService } from 'src/app/services/signalr.service';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-lobby-screen',
   templateUrl: './lobby-screen.component.html',
   styleUrls: ['./lobby-screen.component.scss']
 })
-export class LobbyScreenComponent implements OnInit {
+export class LobbyScreenComponent implements OnInit, OnDestroy {
 
   allParticipants: Participant[] = [];
+  subscription: Subscription;
+  isReady: boolean = false;
 
-  constructor(private backend: BackendService, private router: Router) { }
-
-  ngOnInit(): void {
-    this.getCurrentState();
+  constructor(private signalr: SignalrService, private router: Router) {
+    //this.allParticipants = this.signalr.participantUpdate();
+    const source = interval(3000);
+    this.subscription = source.subscribe(val => this.autoRefresh());
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
-  getCurrentState(): void {
-    this.backend.fetchCurrentState(sessionStorage.getItem("roomcode")).subscribe(
-      (response) => {
-        console.log(response)
-        this.allParticipants = response;
-      },
-      (err) => {
-        console.log(err);
+  ngOnInit(): void {
+    //this.allParticipants = this.signalr.participantUpdate();
+    //console.log(this.allParticipants);
+    this.allParticipants = JSON.parse(sessionStorage.getItem("allParticipants") || "");
+  }
+
+
+  autoRefresh(): void {
+    this.allParticipants = JSON.parse(sessionStorage.getItem("allParticipants") || "");
+    console.log(this.isReady);
+    if (this.isReady) {
+      let count: number = 0;
+      for (var person of this.allParticipants) {
+        if (person.isReady == true) {
+          count++;
+        }
       }
-    );
+      if (count === this.allParticipants.length) {
+        this.router.navigate(['/question']);
+      } else {
+        console.log("People not ready: ", this.allParticipants.length - count);
+      }
+    }
   }
 
   setReady(): void {
-
+    this.isReady = true;
+    this.signalr.indicateReadiness(sessionStorage.getItem("roomcode") || "", sessionStorage.getItem("name") || "").then(
+      (response) => {
+        console.log(response);
+      }
+    )
   }
 }

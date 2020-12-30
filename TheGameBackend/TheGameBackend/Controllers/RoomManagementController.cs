@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
@@ -10,6 +11,7 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using TheGameBackend.Models;
+using TheGameBackend.SignalRHubs;
 using TheGameBackend.Utilities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -21,9 +23,13 @@ namespace TheGameBackend.Controllers
     public class RoomManagementController : ControllerBase
     {
         private static FileAccess fileAccess;
-        public RoomManagementController(IConfiguration configuration)
+        private IHubContext<RoomHub> _hub;
+        RoomHub room;
+        public RoomManagementController(IConfiguration configuration, IHubContext<RoomHub> hub)
         {
             fileAccess = new FileAccess(configuration);
+            _hub = hub;
+            room = new RoomHub(configuration);
         }
 
          
@@ -79,8 +85,9 @@ namespace TheGameBackend.Controllers
 
         // POST api/<RoomManagementController>
         [HttpPost]
-        public HttpResponseMessage Post([FromBody] Participant details)
+        public async Task<HttpResponseMessage> PostAsync([FromBody] Participant details)
         {
+            
             HttpResponseMessage httpResponse = new HttpResponseMessage();
             try
             {
@@ -89,15 +96,19 @@ namespace TheGameBackend.Controllers
                 game.participantCount++;
                 fileAccess.UpdateGame(game);
                 httpResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                await _hub.Clients.All.SendAsync("participantUpdate", game.participants);
+                //await this.room.SendMessage("Hello","World");
                 return httpResponse;
             }
-            catch(InvalidOperationException E)
+            catch(InvalidOperationException)
             {
                 Game game = new Game(details.roomCode);
                 game.participantCount++;
                 game.participants.Add(details);
                 fileAccess.AddGame(game);
                 httpResponse.StatusCode = System.Net.HttpStatusCode.Created;
+                await _hub.Clients.All.SendAsync("participantUpdate", game.participants);
+                //await this.room.SendMessage("Hello", "World");
                 return httpResponse;
             }
             catch(Exception E)
