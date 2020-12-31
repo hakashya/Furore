@@ -23,12 +23,12 @@ namespace TheGameBackend.Controllers
     public class RoomManagementController : ControllerBase
     {
         private static FileAccess fileAccess;
-        private IHubContext<RoomHub> _hub;
+        IConfiguration Configuration;
         RoomHub room;
-        public RoomManagementController(IConfiguration configuration, IHubContext<RoomHub> hub)
+        public RoomManagementController(IConfiguration configuration)
         {
             fileAccess = new FileAccess(configuration);
-            _hub = hub;
+            Configuration = configuration;
             room = new RoomHub(configuration);
         }
 
@@ -37,8 +37,9 @@ namespace TheGameBackend.Controllers
         [HttpGet]
         public void Get()
         {
-            
 
+           /* QuestionGeneration generation = new QuestionGeneration(Configuration);
+            Console.WriteLine(generation.fetchQuestion("Harsha"));*/
         }
 
         // GET api/<RoomManagementController>/5
@@ -96,7 +97,7 @@ namespace TheGameBackend.Controllers
                 game.participantCount++;
                 fileAccess.UpdateGame(game);
                 httpResponse.StatusCode = System.Net.HttpStatusCode.OK;
-                await _hub.Clients.All.SendAsync("participantUpdate", game.participants);
+                //await _hub.Clients.All.SendAsync("participantUpdate", game.participants);
                 //await this.room.SendMessage("Hello","World");
                 return httpResponse;
             }
@@ -107,7 +108,7 @@ namespace TheGameBackend.Controllers
                 game.participants.Add(details);
                 fileAccess.AddGame(game);
                 httpResponse.StatusCode = System.Net.HttpStatusCode.Created;
-                await _hub.Clients.All.SendAsync("participantUpdate", game.participants);
+                //await _hub.Clients.All.SendAsync("participantUpdate", game.participants);
                 //await this.room.SendMessage("Hello", "World");
                 return httpResponse;
             }

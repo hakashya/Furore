@@ -13,9 +13,11 @@ namespace TheGameBackend.SignalRHubs
     public class RoomHub: Hub
     {
         FileAccess fileAccess;
+        IConfiguration Configuration;
         public RoomHub(IConfiguration configuration)
         {
             fileAccess = new FileAccess(configuration);
+            Configuration = configuration;
         }
 
         public virtual Task OnDisconnectedAsync(bool stopCalled)
@@ -70,6 +72,19 @@ namespace TheGameBackend.SignalRHubs
                 game.participants.Add(participant);
                 fileAccess.UpdateGame(game);
                 await Clients.Group(roomCode).SendAsync("participantUpdate", game.participants);
+
+                var count = 0;
+                foreach(var person in game.participants)
+                {
+                    if (person.isReady == true)
+                        count++;
+                }
+                if (count == game.participantCount)
+                {
+                    QuestionGeneration questionGeneration = new QuestionGeneration(Configuration);
+                    await Clients.Group(roomCode).SendAsync("receiveQuestion",questionGeneration.fetchQuestion(game.participants[0].participantName));
+                }
+                    
             }
             catch(Exception e)
             {
@@ -78,5 +93,21 @@ namespace TheGameBackend.SignalRHubs
             }
         }
 
+        public async Task leaveGameRoom(string roomCode, string participantName)
+        {
+            try
+            {
+                Game game = fileAccess.GetGame(roomCode);
+                game.participantCount--;
+                game.participants.Remove(game.participants.First(x => x.participantName==participantName));
+                fileAccess.UpdateGame(game);
+                await Clients.Group(roomCode).SendAsync("participantUpdate", game.participants);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message + "\n");
+                Console.WriteLine(e.StackTrace);
+            }
+        }
     }
 }

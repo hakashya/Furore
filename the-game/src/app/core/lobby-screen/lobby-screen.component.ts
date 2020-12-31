@@ -15,10 +15,11 @@ export class LobbyScreenComponent implements OnInit, OnDestroy {
   allParticipants: Participant[] = [];
   subscription: Subscription;
   isReady: boolean = false;
+  progressPercent: number = 0;
 
   constructor(private signalr: SignalrService, private router: Router) {
     //this.allParticipants = this.signalr.participantUpdate();
-    const source = interval(3000);
+    const source = interval(2000);
     this.subscription = source.subscribe(val => this.autoRefresh());
   }
   ngOnDestroy(): void {
@@ -45,7 +46,8 @@ export class LobbyScreenComponent implements OnInit, OnDestroy {
       if (count === this.allParticipants.length) {
         this.router.navigate(['/question']);
       } else {
-        console.log("People not ready: ", this.allParticipants.length - count);
+        this.progressPercent = (count / this.allParticipants.length) * 100;
+        console.log(this.progressPercent);
       }
     }
   }

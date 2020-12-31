@@ -14,8 +14,10 @@
         </div>
     </div>
     <div *ngIf="isReady">
-        <div class="buttonClass">
-            <p>Waiting for other players to be ready</p>
+        <div class="progress">
+            <div [style.width.%]="progressPercent"
+                class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar"
+                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
     </div>
 

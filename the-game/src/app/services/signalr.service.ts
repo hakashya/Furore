@@ -1,5 +1,7 @@
+import { stringify } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 import * as signalR from "@aspnet/signalr";
+import { QuestionComponent } from '../core/question/question.component';
 import { Participant } from '../Models/participant.model';
 
 @Injectable({
@@ -32,6 +34,13 @@ export class SignalrService {
     return this.connection.invoke("readinessUpdate", room, name);
   }
 
+
+  receiveQuestion(room: string): void {
+    this.connection.on("receiveQuestion", (qeustion: string) => {
+      sessionStorage.setItem("question", qeustion);
+      console.log(qeustion);
+    });
+  }
 
   backendConnect(): void {
     this.connection.start().then(

@@ -15,6 +15,7 @@ export class AppComponent {
   constructor(private backend: BackendService, signalr: SignalrService) {
     signalr.backendConnect();
     signalr.participantUpdate();
+    signalr.receiveQuestion(sessionStorage.getItem("roomcode") || "");
     console.log(signalr);
   }
 
