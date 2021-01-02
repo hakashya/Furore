@@ -272,7 +272,7 @@ body {
       opacity: 0;
       @include transform(translateX(60px));
       @include transition(.2s);
-      -webkit-backface-visibility: hidden;
+      //-webkit-backface-visibility: hidden;
       
       @media (min-width: 768px) {
         max-width: 300px;
@@ -378,4 +378,42 @@ body {
     margin-right: auto;
     margin-bottom: auto;
     width: 75%;
+}
+
+.progress {
+  margin-top: 25%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+#carddeck{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.card{
+  cursor: pointer;
+  //background: linear-gradient(135deg,rgb(130, 63, 224) 10%,rgb(141, 94, 207) 30%,rgb(83, 91, 212) 60%,rgb(0, 67, 143) 100%);
+  background-color: white;
+  margin-top: 2vh;
+  text-align: center;
+}
+
+.card:hover{
+  //background: linear-gradient(135deg,rgb(0, 0, 0) 10%,rgb(225, 221, 231) 30%,rgb(83, 91, 212) 60%,rgb(0, 67, 143) 100%);
+  //background-color: blue;
+ // color:white;
+  outline:dotted 1px;
+  outline:-webkit-focus-ring-color auto 5px;
+  color:#fff;
+  background-color:#3c7ddf;
+  border-color:#0a58ca;
+  box-shadow: 0px 6px 20px black;
+}
+
+
+.card-body{
+  padding: 20px;
 }

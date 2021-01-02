@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
@@ -24,12 +25,11 @@ namespace TheGameBackend.Controllers
     {
         private static FileAccess fileAccess;
         IConfiguration Configuration;
-        RoomHub room;
+        ///IMemoryCache cache;
         public RoomManagementController(IConfiguration configuration)
         {
             fileAccess = new FileAccess(configuration);
             Configuration = configuration;
-            room = new RoomHub(configuration);
         }
 
          

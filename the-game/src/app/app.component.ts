@@ -1,4 +1,5 @@
 import { Component, HostListener, OnDestroy } from '@angular/core';
+import { sign } from 'crypto';
 import { BackendService } from 'src/app/services/backend.service';
 import { SignalrService } from './services/signalr.service';
 
@@ -15,7 +16,8 @@ export class AppComponent {
   constructor(private backend: BackendService, signalr: SignalrService) {
     signalr.backendConnect();
     signalr.participantUpdate();
-    signalr.receiveQuestion(sessionStorage.getItem("roomcode") || "");
+    signalr.receiveQuestion();
+    signalr.reciveVotingOptions();
     console.log(signalr);
   }
 

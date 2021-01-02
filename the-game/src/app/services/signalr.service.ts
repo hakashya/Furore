@@ -2,6 +2,7 @@ import { stringify } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 import * as signalR from "@aspnet/signalr";
 import { QuestionComponent } from '../core/question/question.component';
+import { Answer } from '../Models/Answer.model';
 import { Participant } from '../Models/participant.model';
 
 @Injectable({
@@ -35,11 +36,21 @@ export class SignalrService {
   }
 
 
-  receiveQuestion(room: string): void {
+  receiveQuestion(): void {
     this.connection.on("receiveQuestion", (qeustion: string) => {
       sessionStorage.setItem("question", qeustion);
       console.log(qeustion);
     });
+  }
+
+  reciveVotingOptions(): void {
+    this.connection.on("allowVoting", (votingOptions: Answer[]) => {
+      sessionStorage.setItem("votingOptions", JSON.stringify(votingOptions));
+      console.log(votingOptions);
+    });
+  }
+  submitAnswer(roomcode: String, participantName: String, answer: String): void {
+    this.connection.invoke("submitAnswer", roomcode, participantName, answer);
   }
 
   backendConnect(): void {
