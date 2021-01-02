@@ -4,6 +4,7 @@ import { Participant } from 'src/app/Models/participant.model';
 import { BackendService } from 'src/app/services/backend.service';
 import { SignalrService } from 'src/app/services/signalr.service';
 import { interval, Subscription } from 'rxjs';
+import { Answer } from 'src/app/Models/answer.model';
 
 @Component({
   selector: 'app-lobby-screen',
@@ -16,6 +17,7 @@ export class LobbyScreenComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   isReady: boolean = false;
   progressPercent: number = 0;
+  isActive: boolean = false;
 
   constructor(private signalr: SignalrService, private router: Router) {
     //this.allParticipants = this.signalr.participantUpdate();
@@ -30,11 +32,25 @@ export class LobbyScreenComponent implements OnInit, OnDestroy {
     //this.allParticipants = this.signalr.participantUpdate();
     //console.log(this.allParticipants);
     this.allParticipants = JSON.parse(sessionStorage.getItem("allParticipants") || "");
+    let votes: Answer[] = JSON.parse(sessionStorage.getItem("votingOptions") || "[]");
+    if (votes.length < 1) {
+      this.isActive = true;
+    } else {
+      this.isActive = false;
+    }
   }
 
 
   autoRefresh(): void {
     this.allParticipants = JSON.parse(sessionStorage.getItem("allParticipants") || "");
+    let votes: Answer[] = JSON.parse(sessionStorage.getItem("votingOptions") || "[]");
+    if (votes.length < 1) {
+      this.isActive = true;
+    }
+    else {
+      this.isActive = false;
+    }
+
     console.log(this.isReady);
     if (this.isReady) {
       let count: number = 0;

@@ -3,4 +3,5 @@ export class Participant {
     roomCode?: string
     score?: number
     isReady?: boolean
+    SerialNumber?: number;
 }
