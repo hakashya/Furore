@@ -1,5 +1,5 @@
 export class Answer {
-    answer?: String;
-    participantName?: String;
+    answer?: string;
+    participantName?: string;
     vote?: Number;
 }

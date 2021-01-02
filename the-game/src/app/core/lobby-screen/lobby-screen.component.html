@@ -10,7 +10,8 @@
     </ul>
     <div *ngIf="!isReady">
         <div class="buttonClass">
-            <button class="btn btn-primary" type="submit" (click)="setReady()">I am Ready</button>
+            <button class="btn btn-primary" [disabled]="!isActive" type="submit" (click)="setReady()">I am
+                Ready</button>
         </div>
     </div>
     <div *ngIf="isReady">

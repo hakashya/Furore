@@ -51,7 +51,7 @@
 
                     <div *ngFor="let option of votingOptions" class="card">
 
-                        <a (click)="loginconsole(option.participantName)" class="stretched-link"></a>
+                        <a (click)="relayVote(option.participantName)" class="stretched-link"></a>
                         <div class="card-body">
                             <!--<h5 class="card-title">Card title</h5>-->
                             <p class="card-text">{{option.answer}}</p>

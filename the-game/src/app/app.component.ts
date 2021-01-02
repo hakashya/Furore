@@ -10,10 +10,10 @@ import { SignalrService } from './services/signalr.service';
 })
 export class AppComponent {
 
-  title: string = 'YIKES!';
+  title: string = 'FURORE!';
   trigger: string = '';
 
-  constructor(private backend: BackendService, signalr: SignalrService) {
+  constructor(private backend: BackendService, private signalr: SignalrService) {
     signalr.backendConnect();
     signalr.participantUpdate();
     signalr.receiveQuestion();
@@ -30,12 +30,13 @@ export class AppComponent {
 
   @HostListener('window:unload', ['$event'])
   unloadHandler(event: any) {
-    console.log(this.trigger);
-    this.backend.quitRoom(sessionStorage.getItem("roomcode"), sessionStorage.getItem("name")).subscribe(
+    console.log(event);
+    this.signalr.leaveGame(sessionStorage.getItem("roomcode") || "", sessionStorage.getItem("name") || "").then(
       (response) => {
         console.log(response)
         sessionStorage.clear();
-      },
+      }
+    ).catch(
       (err) => {
         console.log(err)
       }

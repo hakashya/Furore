@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
 import { Answer } from 'src/app/Models/answer.model';
 import { Participant } from 'src/app/Models/participant.model';
@@ -20,7 +21,7 @@ export class QuestionComponent implements OnInit {
   subscription: Subscription;
   votingOptions: Answer[] = [];
 
-  constructor(public signalr: SignalrService) {
+  constructor(public signalr: SignalrService, private router: Router) {
     const source = interval(2000);
     this.subscription = source.subscribe(val => this.autoRefreshQuestions());
   }
@@ -37,7 +38,7 @@ export class QuestionComponent implements OnInit {
 
 
   autoRefreshQuestions(): void {
-
+    this.question = sessionStorage.getItem("question") || this.question;
     this.allParticipants = JSON.parse(sessionStorage.getItem("allParticipants") || "");
     console.log(this.submitAnswer);
     if (this.submitAnswer) {
@@ -49,12 +50,16 @@ export class QuestionComponent implements OnInit {
     }
   }
 
-  relayVote(name: string): void {
-
-  }
-
-  loginconsole(name: string): void {
-    console.log("Card was clicked ", name);
+  relayVote(name?: string): void {
+    this.signalr.submitVote(sessionStorage.getItem("roomcode") || "", sessionStorage.getItem("name") || "", name || "").then(
+      (response) => {
+        this.router.navigate(['/lobby']);
+      }
+    ).catch(
+      (err) => {
+        console.log(err);
+      }
+    )
   }
 }
 

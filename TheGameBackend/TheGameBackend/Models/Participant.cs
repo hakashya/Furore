@@ -14,5 +14,16 @@ namespace TheGameBackend.Models
         public int score { get; set; }
 
         public bool isReady { get; set; }
+        public int SerialNumber;
+
+        public int getSerialNumber()
+        {
+            return SerialNumber;
+        }
+
+        public void setSerialNumber(int num)
+        {
+            SerialNumber = num;
+        }
     }
 }

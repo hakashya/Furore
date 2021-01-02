@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using TheGameBackend.Models;
@@ -45,8 +43,8 @@ namespace TheGameBackend.SignalRHubs
             try
             {
                 Game game = fileAccess.GetGame(roomCode);
+                self.setSerialNumber(game.participantCount++);
                 game.participants.Add(self);
-                game.participantCount++;
                 fileAccess.UpdateGame(game);
                 retVal = game.participants;
                 await Groups.AddToGroupAsync(Context.ConnectionId, roomCode);
@@ -55,7 +53,7 @@ namespace TheGameBackend.SignalRHubs
             catch (InvalidOperationException)
             {
                 Game game = new Game(roomCode);
-                game.participantCount++;
+                self.setSerialNumber(game.participantCount++);
                 game.participants.Add(self);
                 fileAccess.AddGame(game);
                 retVal = game.participants;
@@ -80,7 +78,7 @@ namespace TheGameBackend.SignalRHubs
                 if (count == game.participantCount)
                 {
                     QuestionGeneration questionGeneration = new QuestionGeneration(Configuration);
-                    await Clients.Group(roomCode).SendAsync("receiveQuestion",questionGeneration.fetchQuestion(game.participants[game.roundCount%game.participantCount].participantName));
+                    await Clients.Group(roomCode).SendAsync("receiveQuestion",questionGeneration.fetchQuestion(game.participants.First(x=> x.getSerialNumber()==(game.roundCount % game.participantCount)).participantName));
                 }
                     
             }
@@ -130,8 +128,9 @@ namespace TheGameBackend.SignalRHubs
                 if (responses.Count == game.participantCount)
                 {
                     await Clients.Group(roomCode).SendAsync("allowVoting",responses);
-                    //cache.Remove(roomCode);
-                    game = negateReadiness(game);                    
+                    cache.Remove(roomCode);
+                    game = negateReadiness(game);
+                    game.roundCount++;
                     fileAccess.UpdateGame(game);
                     await Clients.Group(roomCode).SendAsync("participantUpdate", game.participants);
                 }
@@ -140,6 +139,46 @@ namespace TheGameBackend.SignalRHubs
             {
 
             }
+        }
+
+
+        public async Task receiveVote(string roomCode, string voterName, string voteeName)
+        {
+            List<Scorecard> scores;
+            string cacheKey = roomCode + "_scores";
+            if (!cache.TryGetValue(cacheKey, out scores))
+            {
+                scores = new List<Scorecard>();
+            }
+            scores.Add(new Scorecard { votee = voteeName, voter=voterName});
+
+            var expirationToken = new CancellationChangeToken(new CancellationTokenSource().Token);
+            var memoryCacheOptions = new MemoryCacheEntryOptions()
+                                    .SetSlidingExpiration(TimeSpan.FromMinutes(30))
+                                    .AddExpirationToken(expirationToken)
+                                    .SetPriority(CacheItemPriority.Normal);
+
+            cache.Set(cacheKey, scores, memoryCacheOptions);
+
+
+            Game game = fileAccess.GetGame(roomCode);
+            if (scores.Count == game.participantCount)
+            {
+                //Delete votingOptions here after sending the updated scores.
+
+                foreach(var score in scores)
+                {
+                    Participant player = game.participants.First<Participant>(x => x.participantName.Equals(score.votee));
+                    game.participants.Remove(player);
+                    player.score += 10;
+                    game.participants.Add(player);
+                }
+                cache.Remove(cacheKey);
+                await Clients.Group(roomCode).SendAsync("participantUpdate", game.participants);
+                fileAccess.UpdateGame(game);
+                await Clients.Group(roomCode).SendAsync("allowVoting", "");       //Emptying the voting options array at client.
+            }
+
         }
 
         private async Task<Game> updateReadiness(string roomCode, string participantName)

@@ -1,8 +1,6 @@
-import { stringify } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 import * as signalR from "@aspnet/signalr";
-import { QuestionComponent } from '../core/question/question.component';
-import { Answer } from '../Models/Answer.model';
+import { Answer } from '../Models/answer.model';
 import { Participant } from '../Models/participant.model';
 
 @Injectable({
@@ -10,7 +8,7 @@ import { Participant } from '../Models/participant.model';
 })
 export class SignalrService {
 
-  connection: signalR.HubConnection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44385/roomhub").configureLogging(signalR.LogLevel.Information).build();
+  connection: signalR.HubConnection = new signalR.HubConnectionBuilder().withUrl("https://thegamebackend.azurewebsites.net/roomhub").configureLogging(signalR.LogLevel.Information).build();
 
   constructor() {
 
@@ -22,13 +20,9 @@ export class SignalrService {
   }
 
   participantUpdate(): void {
-    //let _all: Participant[] = [];
     this.connection.on("participantUpdate", (allParticipants: Participant[]) => {
-      //console.log("abc", allParticipants);
-      //_all = allParticipants;
       sessionStorage.setItem("allParticipants", JSON.stringify(allParticipants));
     });
-    //return _all;
   }
 
   indicateReadiness(room: string, name: string): Promise<any> {
@@ -51,6 +45,14 @@ export class SignalrService {
   }
   submitAnswer(roomcode: String, participantName: String, answer: String): void {
     this.connection.invoke("submitAnswer", roomcode, participantName, answer);
+  }
+
+  submitVote(roomcode: String, votername: String, voteename: String): Promise<any> {
+    return this.connection.invoke("receiveVote", roomcode, votername, voteename);
+  }
+
+  leaveGame(room: string, name: string): Promise<any> {
+    return this.connection.invoke("leaveGameRoom", room, name);
   }
 
   backendConnect(): void {
