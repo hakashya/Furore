@@ -10,7 +10,7 @@ import { SignalrService } from './services/signalr.service';
 })
 export class AppComponent {
 
-  title: string = 'YIKES!';
+  title: string = 'FURORE!';
   trigger: string = '';
 
   constructor(private backend: BackendService, private signalr: SignalrService) {
@@ -41,16 +41,5 @@ export class AppComponent {
         console.log(err)
       }
     );
-    /*
-    this.backend.quitRoom(sessionStorage.getItem("roomcode"), sessionStorage.getItem("name")).subscribe(
-      (response) => {
-        console.log(response)
-        sessionStorage.clear();
-      },
-      (err) => {
-        console.log(err)
-      }
-    );
-    */
   }
 }

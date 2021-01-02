@@ -45,7 +45,6 @@ namespace TheGameBackend.SignalRHubs
                 Game game = fileAccess.GetGame(roomCode);
                 self.setSerialNumber(game.participantCount++);
                 game.participants.Add(self);
-                //game.participantCount++;
                 fileAccess.UpdateGame(game);
                 retVal = game.participants;
                 await Groups.AddToGroupAsync(Context.ConnectionId, roomCode);
@@ -55,7 +54,6 @@ namespace TheGameBackend.SignalRHubs
             {
                 Game game = new Game(roomCode);
                 self.setSerialNumber(game.participantCount++);
-                //game.participantCount++;
                 game.participants.Add(self);
                 fileAccess.AddGame(game);
                 retVal = game.participants;
