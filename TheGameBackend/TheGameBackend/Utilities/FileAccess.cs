@@ -74,6 +74,12 @@ namespace TheGameBackend.Utilities
 
         public void UpdateGame(Game game)
         {
+            if(game.participantCount <=0)
+            {
+                this.DeleteGame(game);
+                return;
+            }
+
             string filePath = $"{Configuration["FilePath"]}\\{game.roomCode}.json";
 
             if (File.Exists(filePath))

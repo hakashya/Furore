@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BackendService } from 'src/app/services/backend.service';
+import { SignalrService } from 'src/app/services/signalr.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,7 @@ export class HomeComponent implements OnInit {
   joincode: string = '';
   displayAlert: boolean = false;
 
-  constructor(private backend: BackendService, private router: Router) {
+  constructor(private signalr: SignalrService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -32,18 +33,34 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    this.backend.joinTheRoom({ participantName: this.name, roomCode: this.joincode, score: 0, isReady: false }).subscribe(
+    this.signalr.joinGame(this.joincode, { participantName: this.name, roomCode: this.joincode, score: 0, isReady: false }).then(
       (response) => {
         console.log(response)
         sessionStorage.setItem("name", this.name);
         sessionStorage.setItem("roomcode", this.joincode);
         sessionStorage.setItem("score", "0");
         this.router.navigate(['/lobby']);
-      },
+      }
+    ).catch(
       (err) => {
-        console.log(err);
+        console.log(err)
       }
     )
+
+
+    //this.backend.joinTheRoom({ participantName: this.name, roomCode: this.joincode, score: 0, isReady: false }).subscribe(
+    //  (response) => {
+    //    console.log(response)
+    //    sessionStorage.setItem("name", this.name);
+    //    sessionStorage.setItem("roomcode", this.joincode);
+    //    sessionStorage.setItem("score", "0");
+    //    this.router.navigate(['/lobby']);
+    //  },
+    //  (err) => {
+    //    console.log(err);
+    //  }
+    //)
+
   }
 
   createCode(length: number): string {

@@ -1,0 +1,67 @@
+<div class="col">
+    <div class="row">
+        <div class="container" id="qu">
+            <div id="queDiv">{{question}}
+            </div>
+
+        </div>
+    </div>
+    <div *ngIf="!submitAnswer" class="row">
+        <div class="container" style="margin-top: 3vh; object-fit: cover;" id="ansDiv">
+            <div class="pop-up open">
+                <div class="content">
+                    <div class="container">
+                        <div class="dots">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+
+                        <div class="title">
+                            <h1>Answer</h1>
+                        </div>
+
+                        <div class="subscribe">
+                            <h1>Enter your most <span>outrageous</span> answer below.</h1>
+
+                            <form>
+                                <input name="inputAnswerFormText" [(ngModel)]="answer" type="email"
+                                    placeholder="Your response">
+                                <input type="submit" value="Done" (click)="answerSubmitted()">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="submitAnswer" class="row">
+        <div class="container" style="margin-top: 3vh; object-fit: cover;">
+            <div *ngIf="!showAnswers">
+                <!--<div class="progress">
+                    <div [style.width.%]="progressPercent"
+                        class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar"
+                        aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+
+                </div>-->
+                <p>Waiting for other players to answer</p>
+            </div>
+            <div *ngIf="showAnswers">
+                <div class="container" id="carddeck">
+
+                    <div *ngFor="let option of votingOptions" class="card">
+
+                        <a (click)="loginconsole(option.participantName)" class="stretched-link"></a>
+                        <div class="card-body">
+                            <!--<h5 class="card-title">Card title</h5>-->
+                            <p class="card-text">{{option.answer}}</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Submitted by {{option.participantName}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

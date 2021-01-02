@@ -7,12 +7,15 @@ import { HomeComponent } from './core/home/home.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LobbyScreenComponent } from './core/lobby-screen/lobby-screen.component';
+import { QuestionComponent } from './core/question/question.component';
+import { SignalrService } from './services/signalr.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LobbyScreenComponent
+    LobbyScreenComponent,
+    QuestionComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +23,7 @@ import { LobbyScreenComponent } from './core/lobby-screen/lobby-screen.component
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [SignalrService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

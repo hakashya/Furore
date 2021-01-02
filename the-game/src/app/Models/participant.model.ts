@@ -2,5 +2,5 @@ export class Participant {
     participantName?: string
     roomCode?: string
     score?: number
-    isReady?: false
+    isReady?: boolean
 }
