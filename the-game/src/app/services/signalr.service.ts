@@ -8,7 +8,7 @@ import { Participant } from '../Models/participant.model';
 })
 export class SignalrService {
 
-  connection: signalR.HubConnection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44385/roomhub").configureLogging(signalR.LogLevel.Information).build();
+  connection: signalR.HubConnection = new signalR.HubConnectionBuilder().withUrl("https://thegamebackend.azurewebsites.net/roomhub").configureLogging(signalR.LogLevel.Information).build();
 
   constructor() {
 
